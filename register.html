@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./assets/css/form.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Register page</title>
+  </head>
+  <body>
+    <div class="overlay"></div>
+    <div class="wrapper">
+      <div class="container-login">
+        <div class="title">
+          <i class="fa-regular fa-user"></i>
+        </div>
+        <form class="form">
+          <div class="wrapper-form">
+            <div class="input-control">
+              <input
+                type="text"
+                id="username"
+                name="username"
+                required
+                placeholder="Tên tài khoản..."
+                class="input-login"
+              />
+              <div class="icon">
+                <i class="fa-regular fa-user"></i>
+              </div>
+            </div>
+            <div class="input-control">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                required
+                class="input-login"
+                placeholder="Mật khẩu..."
+              />
+              <div class="icon">
+                <i class="fa-solid fa-lock"></i>
+              </div>
+            </div>
+            <div class="input-control">
+              <input
+                type="password"
+                id="confirm_password"
+                name="confirm_password"
+                required
+                class="input-login"
+                placeholder="Nhập lại mật khẩu..."
+              />
+              <div class="icon">
+                <i class="fa-solid fa-lock"></i>
+              </div>
+            </div>
+            <div class="input-control">
+              <button class="btn-login">ĐĂNG KÝ</button>
+            </div>
+            <div class="form-footer">
+              <div class="left-footer"></div>
+              <div class="right-footer">
+                <a href="./login.html"><p>Đăng nhập ?</p></a>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="footer-login"></div>
+      </div>
+    </div>
+    <script src="./assets/js/notification.js"></script>
+    <script src="./assets/js/data/user.js"></script>
+    <script src="./assets/js/data/localStorage.js"></script>
+    <script src="./assets/js/register.js"></script>
+  </body>
+</html>

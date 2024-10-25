@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web site bán hàng</title>
+    <!-- <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Rubik:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    /> -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./assets/css/responsive.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/admin.css" />
+  </head>
+  <body>
+    <!-- OVERLAY -->
+    <div class="overlay" id="overlay">
+      <div class="overlay_detail_order" id="overlay_content"></div>
+    </div>
+    <div class="main">
+      <div class="admin_page">
+        <h1 class="title_page_admin" id="addAdminPage">TRANG ADMIN</h1>
+        <div class="logo_admin">
+          <img src="./assets/img/logo.png" alt="logo_admin_page" />
+        </div>
+        <div class="header_admin-page">
+          <!-- 1. Phân loại sản phẩm ở trang quản lí sản phẩm -->
+          <div class="header_admin-classification">
+            <div class="classification_select classification_select-admin">
+              <span class="classification_select-text"></span>
+              <ul class="classification_option">
+                <li onclick="defaultClassification()">Mặc định</li>
+                <li onclick="handle128GB()">128GB</li>
+                <li onclick="handle64GB()">64GB</li>
+                <li onclick="handle99()">Máy 99%</li>
+              </ul>
+            </div>
+          </div>
+          <!-- 2. Nút thêm sản phẩm ở trang quản lí sản phẩm -->
+          <div class="header_admin-page-btn">
+            <button id="addProductAdminBtn">Thêm sản phẩm</button>
+          </div>
+        </div>
+        <div class="admin_content">
+          <ul class="navbar_admin">
+            <li class="nav_item_admin active" data="1">QUẢN LÝ SẢN PHẨM</li>
+            <li class="nav_item_admin" data="2" id="ordersAdminPage">
+              QUẢN LÝ ĐƠN HÀNG
+            </li>
+            <li class="nav_item_admin" data="3" id="userAdminPage">
+              QUẢN LÝ TÀI KHOẢN
+            </li>
+            <li class="nav_item_admin" data="4">ĐĂNG XUẤT</li>
+          </ul>
+          <div class="container_admin">
+            <table id="table">
+              <thead id="table_header">
+                <tr>
+                  <th>Mã sản phẩm</th>
+                  <th>Hình ảnh</th>
+                  <th>Tên sản phẩm</th>
+                  <th>Giá</th>
+                  <th>Chỉnh sửa</th>
+                  <th>Xóa</th>
+                </tr>
+              </thead>
+              <tbody id="tbody_addProduct"></tbody>
+              <tbody id="tbody_ordersPage"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./assets/js/notification.js"></script>
+    <script src="./assets/js/render.js"></script>
+    <script src="./assets/js/orders.js"></script>
+    <script src="./assets/js/cart.js"></script>
+    <script src="./assets/js/search.js"></script>
+    <script src="./assets/js/data/product.js"></script>
+    <script src="./assets/js/data/user.js"></script>
+    <script src="./assets/js/data/localStorage.js"></script>
+    <script src="./assets/js/slider.js"></script>
+    <script src="./assets/js/admin.js"></script>
+    <script src="./assets/js/index.js"></script>
+  </body>
+</html>

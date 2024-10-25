@@ -1,0 +1,6 @@
+Tài khoản admin:
+- username: admin
+- password: admin
+Tai khoan user:
+- username: user
+- password: user
