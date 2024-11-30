@@ -308,3 +308,8 @@ const renderCheckOutPage = () => {
   });
   checkOutProductDiv.innerHTML = htmls.join("");
 };
+// Function to toggle the display of the advanced search form
+function toggleAdvancedSearch() {
+  const form = document.getElementById('advancedSearchForm');
+  form.style.display = (form.style.display === 'none' || form.style.display === '') ? 'block' : 'none';
+}

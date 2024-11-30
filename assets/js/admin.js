@@ -718,6 +718,8 @@ const renderCustomerManagementPage = () => {
           <div class="user_description-admin">Khách hàng</div>
         </div>
         <div class="item_user-action">
+          <span data="${item.id}" id="edit_user-admin"><i class="fa-solid fa-pen-to-square"></i></span>
+          <span data="${item.id}" id="lock_user-admin"><i class="fa-solid fa-lock"></i></span>
           <span data="${item.id}" id="delete_user-admin">&times;</span>
         </div>
       </div>`;
@@ -737,6 +739,125 @@ const renderCustomerManagementPage = () => {
             window.location.href = "admin.html";
           }, 1000);
         }
+      }
+    });
+  });
+  // Tạo một box để thêm tài khoản bên cạnh danh sách tài khoản
+  let addUser = document.createElement("div");
+  addUser.setAttribute("class", "add_user-admin");
+  addUser.innerHTML = `
+    <span id="add_user-admin"><i class="fa-solid fa-plus"></i></span>
+  `;
+
+  containerAdminDiv.appendChild(addUser);
+
+  // Thêm tài khoản
+  const addUserAdmin = document.getElementById("add_user-admin");
+  addUserAdmin.addEventListener("click", () => {
+    let overlay = document.getElementById("overlay");
+    overlay.classList.add("active");
+    let close = document.createElement("div");
+    close.setAttribute("class", "overlay_close");
+    close.setAttribute("onclick", "overlayClose()");
+    close.innerHTML = "&times;";
+    let overlayContent = document.getElementById("overlay_content");
+    overlayContent.innerHTML = `
+      <form class="form_admin">
+        <div class="form_controll_admin">
+          <label for="username_admin">Tên tài khoản</label>
+          <input required type="text" id="username_admin" placeholder="Nhập tên tài khoản..." />
+        </div>
+        <div class="form_controll_admin">
+          <label for="password_admin">Mật khẩu</label>
+          <input required type="password" id="password_admin" placeholder="Nhập mật khẩu..." />
+        </div>
+        <button class="submit_admin" id="admin_add_user">THÊM</button>
+      </form>
+    `;
+    overlay.appendChild(close);
+    document.getElementById("admin_add_user").addEventListener("click", (e) => {
+      e.preventDefault();
+      const username = document.getElementById("username_admin").value;
+      const password = document.getElementById("password_admin").value;
+      if (username.length == 0) {
+        alert("Tên tài khoản không được để trống!");
+        return;
+      }
+      if (password.length == 0) {
+        alert("Mật khẩu không được để trống!");
+        return;
+      }
+      dataUser.push({
+        id: dataUser.length + 1,
+        username: username,
+        password: password,
+        isLocked: false,
+      });
+      localStorage.setItem("USER", JSON.stringify(dataUser));
+      overlay.classList.remove("active");
+      notificationAdminSuccess("Thêm tài khoản thành công");
+      setTimeout(() => {
+        window.location.href = "admin.html";
+      }, 1000);
+    });
+  });
+
+  const editUser = document.querySelectorAll("#edit_user-admin");
+  editUser.forEach((item, index) => {
+    item.addEventListener("click", () => {
+      const userId = Number(item.getAttribute("data"));
+      const user = dataUser.find(user => user.id === userId);
+      if (user) {
+        let overlay = document.getElementById("overlay");
+        overlay.classList.add("active");
+        let close = document.createElement("div");
+        close.setAttribute("class", "overlay_close");
+        close.setAttribute("onclick", "overlayClose()");
+        close.innerHTML = "&times;";
+        let overlayContent = document.getElementById("overlay_content");
+        overlayContent.innerHTML = `
+          <form class="form_admin">
+            <div class="form_controll_admin">
+              <label for="username_admin-update">Tên tài khoản</label>
+              <input required type="text" id="username_admin-update" value="${user.username}" />
+            </div>
+            <div class="form_controll_admin">
+              <label for="password_admin-update">Mật khẩu</label>
+              <input required type="password" id="password_admin-update" value="${user.password}" />
+            </div>
+            <button class="submit_admin" id="admin_update_user">XÁC NHẬN</button>
+          </form>`;
+        overlay.appendChild(close);
+
+        document.getElementById("admin_update_user").addEventListener("click", (e) => {
+          e.preventDefault();
+          const updatedUsername = document.getElementById("username_admin-update").value;
+          const updatedPassword = document.getElementById("password_admin-update").value;
+          user.username = updatedUsername;
+          user.password = updatedPassword;
+          localStorage.setItem("USER", JSON.stringify(dataUser));
+          overlay.classList.remove("active");
+          notificationAdminSuccess("Cập nhật tài khoản thành công");
+          setTimeout(() => {
+            window.location.href = "admin.html";
+          }, 1000);
+        });
+      }
+    });
+  });
+
+  const lockUser = document.querySelectorAll("#lock_user-admin");
+  lockUser.forEach((item, index) => {
+    item.addEventListener("click", () => {
+      const userId = Number(item.getAttribute("data"));
+      const user = dataUser.find(user => user.id === userId);
+      if (user) {
+        user.isLocked = !user.isLocked;
+        localStorage.setItem("USER", JSON.stringify(dataUser));
+        notificationAdminSuccess(user.isLocked ? "Khóa tài khoản thành công" : "Mở khóa tài khoản thành công");
+        setTimeout(() => {
+          window.location.href = "admin.html";
+        }, 1000);
       }
     });
   });
@@ -775,3 +896,36 @@ const handleImageReview = (url, flag) => {
     document.querySelector(".file_product_admin").classList.remove("active");
   }
 };
+
+document.getElementById('searchAdminBtn').addEventListener('click', handleAdminSearch);
+
+// Tim kiem admin
+function handleAdminSearch() {
+  const query = document.getElementById('searchAdminInput').value.trim().toLowerCase();
+  const dataProductLocal = JSON.parse(localStorage.getItem("PRODUCTS")) || [];
+
+  const filteredProducts = dataProductLocal.filter(product => 
+    product.name.toLowerCase().includes(query) ||
+    product.id.toString().includes(query)
+  );
+
+  renderAddProductPage(filteredProducts);
+}
+
+// Optionally, add functionality to clear search and show all products
+document.getElementById('searchAdminInput').addEventListener('input', function() {
+  const query = this.value.trim().toLowerCase();
+  const dataProductLocal = JSON.parse(localStorage.getItem("PRODUCTS")) || [];
+
+  if (query === "") {
+    renderAddProductPage(dataProductLocal);
+    return;
+  }
+
+  const filteredProducts = dataProductLocal.filter(product => 
+    product.name.toLowerCase().includes(query) ||
+    product.id.toString().includes(query)
+  );
+
+  renderAddProductPage(filteredProducts);
+});

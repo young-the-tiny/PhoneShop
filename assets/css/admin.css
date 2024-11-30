@@ -583,3 +583,27 @@ table button {
 .order_time-control {
   margin: 0 20px;
 }
+.admin_search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+.admin_search {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.admin_search input {
+  flex-grow: 1;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.admin_search button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-left: 10px;
+}
