@@ -791,6 +791,8 @@ const renderCustomerManagementPage = () => {
         id: dataUser.length + 1,
         username: username,
         password: password,
+        orders: [],
+        cart: [],
         isLocked: false,
       });
       localStorage.setItem("USER", JSON.stringify(dataUser));

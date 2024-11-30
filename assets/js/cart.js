@@ -1,12 +1,14 @@
 function addProductToLocal(data) {
   if (isLogin) {
-    let cartArr = JSON.parse(localStorage.getItem("CART")) || [];
-    // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
+    let user = JSON.parse(localStorage.getItem("userIsLogin")) || {};
+    let cartArr = user.cart || [];
     const productExists = cartArr.some((item) => item.id === data.id);
     if (!productExists) {
       cartArr.push(data);
-      localStorage.setItem("CART", JSON.stringify(cartArr));
+      user.cart = cartArr;
+      localStorage.setItem("userIsLogin", JSON.stringify(user));
     }
+    renderTotalPrice("userIsLogin", totalPrice);
   }
 }
 
@@ -91,4 +93,15 @@ function deleteProduct(index) {
     localStorage.setItem("userIsLogin", JSON.stringify(updatedUserIsLogin));
     renderCartPage();
   }
+}
+
+function renderTotalPrice(user, totalPrice) {
+  const totalPriceElement = document.querySelector(".total-price");
+  const userIsLogin = JSON.parse(localStorage.getItem(user));
+  const cart = userIsLogin.cart;
+  let total = 0;
+  cart.forEach((item) => {
+    total += item.price * item.quantity;
+  });
+  totalPriceElement.innerHTML = total + " VND";
 }
