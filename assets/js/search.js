@@ -5,7 +5,7 @@ let searchArr = [];
 searchButton.addEventListener("click", () => {
   detailPage.classList.add("active");
   wrapperProd.classList.remove("active");
-  searchProduct(searchInput.value.toUpperCase());
+  searchProduct("IPHONE 13");
   renderProductPage(searchArr);
   searchArr = [];
 });
