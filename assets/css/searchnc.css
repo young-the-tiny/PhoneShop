@@ -1,0 +1,261 @@
+/* FONT */
+@font-face {
+    font-family: "Rubik";
+    src: url("../font/Rubik-Bold.eot");
+    src: url("../font/Rubik-Bold.eot?#iefix") format("embedded-opentype"),
+      url("../font/Rubik-Bold.woff2") format("woff2"),
+      url("../font/Rubik-Bold.woff") format("woff"),
+      url("../font/Rubik-Bold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: "Rubik";
+    src: url("../font/Rubik-Light.eot");
+    src: url("../font/Rubik-Light.eot?#iefix") format("embedded-opentype"),
+      url("../font/Rubik-Light.woff2") format("woff2"),
+      url("../font/Rubik-Light.woff") format("woff"),
+      url("../font/Rubik-Light.ttf") format("truetype");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: "Rubik";
+    src: url("../font/Rubik-Medium.eot");
+    src: url("../font/Rubik-Medium.eot?#iefix") format("embedded-opentype"),
+      url("../font/Rubik-Medium.woff2") format("woff2"),
+      url("../font/Rubik-Medium.woff") format("woff"),
+      url("../font/Rubik-Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: "Rubik";
+    src: url("../font/Rubik-Regular.eot");
+    src: url("../font/Rubik-Regular.eot?#iefix") format("embedded-opentype"),
+      url("../font/Rubik-Regular.woff2") format("woff2"),
+      url("../font/Rubik-Regular.woff") format("woff"),
+      url("../font/Rubik-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: "Rubik";
+    src: url("../font/Rubik-SemiBold.eot");
+    src: url("../font/Rubik-SemiBold.eot?#iefix") format("embedded-opentype"),
+      url("../font/Rubik-SemiBold.woff2") format("woff2"),
+      url("../font/Rubik-SemiBold.woff") format("woff"),
+      url("../font/Rubik-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    font-family: "Rubik", sans-serif;
+  }
+  :root {
+    /* set width and height */
+    --header-height: 100px;
+    /* font size for text */
+    --font-size-header: 16px;
+    /* color */
+    --background-header: #10182f;
+  
+    --primary-color: #10182f;
+    --color-second: rgb(6, 46, 106);
+    --first-color: #0267cc;
+    --header-text-color: white;
+    --text-linear: linear-gradient(#e66465, #9198e5);
+    /* z-index */
+    --z-header: 10;
+  }
+  .header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-bottom: 1px #9999 solid;
+    background: var(--background-header);
+    z-index: var(--z-header);
+    height: var(--header-height);
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+  }
+  .header.active {
+    display: none;
+  }
+  
+  .header_logo {
+    width: calc(var(--header-height) + 30px);
+    height: calc(var(--header-height) - 10px);
+  }
+  .logo_img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .header_nav {
+    margin-left: auto;
+}
+
+.header_menu {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.header_menu li {
+    margin-left: 20px;
+}
+
+.header_link {
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.header_link:hover {
+    color: #007bff;
+}
+  /*      CSS FOOTER */
+.footer-content {
+    width: 100%;
+    background-color: #10182f;
+    padding: 30px;
+    color: white;
+    font-size: 14px;
+  }
+  
+  .footer-logo {
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+  }
+  
+  .footer-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  
+  .footer-list,
+  .footer-contact {
+    margin-top: 20px;
+  }
+  
+  .footer-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .footer-list li {
+    font-size: 14px;
+    font-weight: 400;
+    padding: 10px;
+    margin: 0 10px;
+  }
+  .footer-contact {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .footer-contact_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .footer-contact_icon li {
+    font-weight: 400;
+    padding: 10px;
+    margin: 0 10px;
+    font-size: 22px;
+    transition: 0.2s linear;
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }  
+
+  /*From TÌM KIẾM NÂNG CAO*/
+  /* Căn chỉnh cho phần tiêu đề và form */
+.search-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-title {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.advanced-search-form .form-group {
+    margin-bottom: 15px;
+}
+
+.advanced-search-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
+}
+
+.advanced-search-form input,
+.advanced-search-form select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.advanced-search-form input:focus,
+.advanced-search-form select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.search-button {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
