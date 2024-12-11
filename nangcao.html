@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tìm kiếm nâng cao</title>
+    <link rel="stylesheet" href="./assets/css/searchnc.css" />
+</head>
+
+<body>
+  <header class="header" id="header">
+    <a class="header_logo" href="index.html">
+      <img src="./assets/img/logo.png" alt="logo" class="logo_img" />
+    </a>
+    <nav class="header_nav">
+      <ul class="header_menu">
+          <li><a href="index.html" class="header_link">TRANG CHỦ</a></li>
+      </ul>
+  </nav>
+  </header>
+  <main>
+    <section class="search-container">
+        <h1 class="search-title">TÌM KIẾM NÂNG CAO</h1>
+        <form action="search_results.html" method="GET" class="advanced-search-form">
+            <div class="form-group">
+                <label for="product-name">TÊN SẢN PHẨM</label>
+                <input type="text" id="product-name" name="product-name" placeholder="Nhập tên sản phẩm...">
+            </div>
+
+            <div class="form-group">
+                <label for="category">LOẠI SẢN PHẨM</label>
+                <select id="category" name="category">
+                    <option value="all">Tất cả</option>
+                    <option value="dungluong">Dung lượng: 128GB</option>
+                    <option value="may99">Máy 99%</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="price-min">GIÁ TỪ</label>
+                <input type="number" id="price-min" name="price-min" placeholder="VNĐ" min="0">
+            </div>
+
+            <div class="form-group">
+                <label for="price-max">ĐẾN</label>
+                <input type="number" id="price-max" name="price-max" placeholder="VNĐ" min="0">
+            </div>
+
+            <button type="button" id="search-button" class="search-button">Tìm kiếm</button>
+        </form>
+    </section>
+  </main>
+
+    <footer class="footer" id="footer">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <img src="./assets/img/logo.png" alt="" />
+          </div>
+  
+          <ul class="footer-list">
+            <li class="footer-item">Terms of Service</li>
+            <li class="footer-item">Privacy Policy</li>
+            <li class="footer-item">Security</li>
+            <li class="footer-item">Sitemap</li>
+          </ul>
+  
+          <div class="footer-contact">
+            <div class="footer-link">
+              <span>Contact with us: </span>
+            </div>
+            <ul class="footer-contact_icon">
+              <li class="contact_icon">
+                <i class="fa-brands fa-instagram"></i>
+              </li>
+              <li class="contact_icon">
+                <i class="fa-brands fa-facebook"></i>
+              </li>
+              <li class="contact_icon"><i class="fa-brands fa-twitter"></i></li>
+              <li class="contact_icon"><i class="fa-brands fa-github"></i></li>
+            </ul>
+            <div class="footer-license">
+              <span>@Nhom 20 2024</span>
+            </div>
+          </div>
+        </div>
+      </footer>
+</body>
+
+</html>
