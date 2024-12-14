@@ -607,3 +607,111 @@ table button {
   font-size: 16px;
   margin-left: 10px;
 }
+
+/* CSS styles for the overlay and invoices */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 999;
+  overflow-y: auto;
+}
+
+.invoices_overlay {
+  background-color: #fff;
+  margin: 50px auto;
+  padding: 20px;
+  width: 80%;
+  border-radius: 8px;
+  position: relative;
+}
+
+.invoices_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.invoices_header h2 {
+  margin: 0;
+}
+
+.close_button {
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.overlay-content {
+  background: #fff;
+  margin: 50px auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 800px;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+/* Styles for timeFilter */
+.timeFilter {
+  padding: 20px;
+  background-color: #f9f9f9;
+  margin-bottom: 30px;
+}
+
+.timeFilter h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.timeFilter-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.timeFilter-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.timeFilter-input label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.timeFilter-input input {
+  padding: 8px;
+  font-size: 16px;
+}
+
+#filterBtn {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#statisticsResults {
+  margin-top: 30px;
+}
