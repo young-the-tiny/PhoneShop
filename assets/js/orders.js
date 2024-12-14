@@ -152,24 +152,24 @@ function sendDataOrders() {
 
   let name = document.getElementById("checkout_name").value;
 
-  if (name == "") {
-    notificationAdminFail("Tên không được để trống");
-    return;
-  }
+  // if (name == "") {
+  //   notificationAdminFail("Tên không được để trống");
+  //   return;
+  // }
 
   let sdt = document.getElementById("checkout_phone").value;
-  let phoneNumberRegex =
-    /^(84|\+84|0)(3[2-9]|5[2689]|7[06-9]|8[1-9]|9[0-46-9])\d{7}$/;
-  if (!phoneNumberRegex.test(sdt)) {
-    notificationAdminFail("SĐT không hợp lệ");
-    return;
-  }
+  // let phoneNumberRegex =
+  //   /^(84|\+84|0)(3[2-9]|5[2689]|7[06-9]|8[1-9]|9[0-46-9])\d{7}$/;
+  // if (!phoneNumberRegex.test(sdt)) {
+  //   notificationAdminFail("SĐT không hợp lệ");
+  //   return;
+  // }
 
   let address = document.getElementById("checkout_address").value;
-  if (address == "") {
-    notificationAdminFail("Địa chỉ không được để trống");
-    return;
-  }
+  // if (address == "") {
+  //   notificationAdminFail("Địa chỉ không được để trống");
+  //   return;
+  // }
 
   let valuePayment = "";
   var radios = document.getElementsByName("payment");
@@ -215,7 +215,7 @@ function sendDataOrders() {
       };
 
       // Thêm đơn hàng mới vào mảng orders
-      ordersArr.push(newOrder);
+      //ordersArr.push(newOrder);
 
       // Cập nhật đối tượng userIsLogin với mảng orders đã cập nhật
       let updatedUserIsLogin = { ...userIsLogin, orders: ordersArr };
@@ -224,8 +224,8 @@ function sendDataOrders() {
       localStorage.setItem("userIsLogin", JSON.stringify(updatedUserIsLogin));
 
       // Xóa giỏ hàng sau khi đặt hàng
-      updatedUserIsLogin = { ...updatedUserIsLogin, cart: [] };
-      localStorage.setItem("userIsLogin", JSON.stringify(updatedUserIsLogin));
+      // updatedUserIsLogin = { ...updatedUserIsLogin, cart: [] };
+      // localStorage.setItem("userIsLogin", JSON.stringify(updatedUserIsLogin));
 
       // Cập nhật lại mảng USER
       item.orders.push(newOrder);
