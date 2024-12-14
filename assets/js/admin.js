@@ -702,6 +702,7 @@ function formatCurrency(value) {
   }).format(value);
 }
 
+
 // RENDER TRANG QUẢN LÍ TÀI KHOẢN
 const renderCustomerManagementPage = () => {
   const containerAdminDiv = document.querySelector(".container_admin");
@@ -865,11 +866,14 @@ const renderCustomerManagementPage = () => {
   });
 };
 
+// Existing navigation handling
 const navItemAdmin = document.querySelectorAll(".nav_item_admin");
 navItemAdmin.forEach((item, index) => {
   item.onclick = function () {
+    // Remove 'active' class from the currently active nav item
     document.querySelector(".nav_item_admin.active").classList.remove("active");
     this.classList.add("active");
+
     if (index == 0) {
       window.location.href = "admin.html";
       renderAddProductPage();
@@ -878,13 +882,15 @@ navItemAdmin.forEach((item, index) => {
     } else if (index == 2) {
       renderCustomerManagementPage();
     } else if (index == 3) {
-      //
-      JSON.stringify(localStorage.setItem("isAdmin", false));
-      JSON.stringify(localStorage.setItem("isLogin", false));
+      renderStatisticsPage();
+    } else if (index == 4) {
+      localStorage.setItem("isAdmin", false);
+      localStorage.setItem("isLogin", false);
       window.location.href = "index.html";
     }
   };
 });
+
 // xử lí ẩn hiện ảnh review
 const handleImageReview = (url, flag) => {
   const imgReview = document.querySelector(".img_review_admin");
@@ -931,3 +937,160 @@ document.getElementById('searchAdminInput').addEventListener('input', function()
 
   renderAddProductPage(filteredProducts);
 });
+
+// Hàm render trang thống kê
+const renderStatisticsPage = () => {
+  const containerAdminDiv = document.querySelector(".container_admin");
+  containerAdminDiv.innerHTML = '';
+
+  // Giao diện bộ lọc ngày
+  const timeFilterHtml = `
+  <div class="timeFilter">
+    <h2>Thống kê Tình hình Kinh doanh</h2>
+    <div class="timeFilter-content">
+      <div class="timeFilter-input">
+        <label for="startDate">Ngày bắt đầu:</label>
+        <input type="date" id="startDate">
+      </div>
+      <div class="timeFilter-input">
+        <label for="endDate">Ngày kết thúc:</label>
+        <input type="date" id="endDate">
+      </div>
+      <button id="filterBtn">Lọc</button>
+    </div>
+    <div id="statisticsResults"></div>
+  </div>
+`;
+
+  containerAdminDiv.innerHTML = timeFilterHtml;
+
+  // Lấy dữ liệu đơn hàng
+  const dataOrder = [];
+  const users = JSON.parse(localStorage.getItem("USER")) || [];
+  users.forEach(user => {
+    if (user.orders && user.orders.length > 0) {
+      dataOrder.push(...user.orders);
+    }
+  });
+
+  // Sự kiện nút lọc
+  document.getElementById('filterBtn').addEventListener('click', () => {
+    const startDateValue = document.getElementById('startDate').value;
+    const endDateValue = document.getElementById('endDate').value;
+
+    if (!startDateValue || !endDateValue) {
+      alert("Vui lòng chọn cả ngày bắt đầu và ngày kết thúc.");
+      return;
+    }
+
+    const startDate = new Date(startDateValue);
+    const endDate = new Date(endDateValue);
+    endDate.setHours(23, 59, 59, 999);
+
+    // Lọc đơn hàng theo thời gian
+    const filteredOrders = dataOrder.filter(order => {
+      const orderDate = new Date(order.orderTime);
+      return orderDate >= startDate && orderDate <= endDate;
+    });
+
+    generateStatistics(filteredOrders);
+  });
+};
+
+function generateStatistics(filteredOrders) {
+  // Tính toán thống kê
+  const productStats = {};
+  let totalRevenue = 0;
+  const customerStats = {};
+
+  filteredOrders.forEach(order => {
+    totalRevenue += order.totalPrice;
+
+    // Thống kê sản phẩm
+    order.products.forEach(product => {
+      if (!productStats[product.id]) {
+        productStats[product.id] = {
+          id: product.id,
+          name: product.name,
+          quantity: 0,
+          totalRevenue: 0
+        };
+      }
+      productStats[product.id].quantity += product.quantity || 1;
+      productStats[product.id].totalRevenue += product.price * (product.quantity || 1);
+    });
+
+    // Thống kê khách hàng
+    // Sử dụng username nếu không có id
+    const customerId = order.infoUser.id || order.infoUser.username || order.infoUser.email || order.infoUser.name;
+    if (!customerStats[customerId]) {
+      customerStats[customerId] = {
+        id: customerId,
+        name: order.infoUser.name,
+        totalSpent: 0
+      };
+    }
+    customerStats[customerId].totalSpent += order.totalPrice;
+  });
+
+  const productsArray = Object.values(productStats)
+    .sort((a, b) => b.quantity - a.quantity);
+
+  const topCustomers = Object.values(customerStats)
+    .sort((a, b) => b.totalSpent - a.totalSpent)
+    .slice(0, 5);
+
+  // Hiển thị kết quả
+  let statisticsHtml = `
+    <h3>Kết quả thống kê từ ${document.getElementById('startDate').value} đến ${document.getElementById('endDate').value}</h3>
+    <p>Tổng doanh thu: ${formatCurrency(totalRevenue)}</p>
+
+    <h4>Danh sách Mặt hàng</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Tên Mặt hàng</th>
+          <th>Số lượng bán ra</th>
+          <th>Tổng doanh thu</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${productsArray.map(product => `
+          <tr>
+            <td>${product.name}</td>
+            <td>${product.quantity}</td>
+            <td>${formatCurrency(product.totalRevenue)}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+
+    <h4>Top 5 Khách hàng</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Tên Khách hàng</th>
+          <th>Tổng chi tiêu</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${topCustomers.map(customer => `
+          <tr>
+            <td>${customer.name}</td>
+            <td>${formatCurrency(customer.totalSpent)}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+
+  document.getElementById('statisticsResults').innerHTML = statisticsHtml;
+}
+
+// Hàm định dạng tiền tệ
+function formatCurrency(amount) {
+  return new Intl.NumberFormat("vi-VN", {
+    style: "currency",
+    currency: "VND",
+  }).format(amount);
+}

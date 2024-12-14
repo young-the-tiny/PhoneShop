@@ -94,14 +94,3 @@ function deleteProduct(index) {
     renderCartPage();
   }
 }
-
-function renderTotalPrice(user, totalPrice) {
-  const totalPriceElement = document.querySelector(".total-price");
-  const userIsLogin = JSON.parse(localStorage.getItem(user));
-  const cart = userIsLogin.cart;
-  let total = 0;
-  cart.forEach((item) => {
-    total += item.price * item.quantity;
-  });
-  totalPriceElement.innerHTML = total + " VND";
-}
