@@ -1,10 +1,17 @@
-const userStorage = JSON.parse(localStorage.getItem("USER"));
+// const userStorage = JSON.parse(localStorage.getItem("USER")) || [];
 const form = document.querySelector(".form");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const username = form.username.value;
   const password = form.password.value;
+
+  // Kiểm tra nếu tên người dùng hoặc mật khẩu bị để trống
+  if (!username || !password) {
+    loginNotification(false, "Tên người dùng và mật khẩu không được để trống");
+    return;
+  }
+
   if (username == "admin" && password == "admin") {
     loginNotification(true);
     localStorage.setItem("isAdmin", "true");
@@ -15,55 +22,20 @@ form.addEventListener("submit", (e) => {
     localStorage.setItem("isAdmin", "false");
   }
 
-  const userExistsInUsers2 = listUser.some(
-    (user1) => user1.username === username
-  );
-  if (userExistsInUsers2) {
-    authencation(username, password);
-  } else {
-    localStorageAuthencation(username, password);
-  }
-  console.log(userExistsInUsers2);
+  // Đăng nhập thành công nếu tên người dùng và mật khẩu không bị để trống
+  localStorage.setItem("isLogin", "true");
+  loginNotification(true);
+  setTimeout(windowLocation, 1000);
 });
 
-function authencation(username, password) {
+function authenticate(username, password, userList) {
   let flag = false;
-  for (let i = 0; i < listUser.length; i++) {
-    const element = listUser[i];
-    if (element.username === username && element.password == password) {
-      if (element.isLocked) {
-        loginNotification(false);
-        setTimeout(closeOverlay, 1000);
-        return false;
-      }
-      flag = true;
-      JSON.stringify(localStorage.setItem("isLogin", true));
-      checkUser(listUser[i]);
-    }
-  }
-  if (flag) {
-    loginNotification(true);
-    setTimeout(windowLocation, 1000);
-  } else {
-    loginNotification(false);
-    setTimeout(closeOverlay, 1000);
-  }
-  return flag;
-}
-
-function localStorageAuthencation(username, password) {
-  let flag = false;
-  for (let i = 0; i < userStorage.length; i++) {
-    const element = userStorage[i];
+  for (let i = 0; i < userList.length; i++) {
+    const element = userList[i];
     if (element.username === username && element.password === password) {
-      if (element.isLocked) {
-        loginNotification(false);
-        setTimeout(closeOverlay, 1000);
-        return false;
-      }
       flag = true;
       localStorage.setItem("isLogin", "true");
-      checkUser(userStorage[i]);
+      checkUser(userList[i]);
     }
   }
   if (flag) {
