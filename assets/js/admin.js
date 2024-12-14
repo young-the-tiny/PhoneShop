@@ -1,3 +1,4 @@
+
 // 1. THÊM SẢN PHẨM
 // localStorage.setItem("PRODUCT", JSON.stringify(products));
 const addProduct = () => {
