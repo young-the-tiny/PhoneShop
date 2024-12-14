@@ -908,17 +908,7 @@ const handleImageReview = (url, flag) => {
 document.getElementById('searchAdminBtn').addEventListener('click', handleAdminSearch);
 
 // Tim kiem admin
-function handleAdminSearch() {
-  const query = document.getElementById('searchAdminInput').value.trim().toLowerCase();
-  const dataProductLocal = JSON.parse(localStorage.getItem("PRODUCTS")) || [];
 
-  const filteredProducts = dataProductLocal.filter(product => 
-    product.name.toLowerCase().includes(query) ||
-    product.id.toString().includes(query)
-  );
-
-  renderAddProductPage(filteredProducts);
-}
 
 // Optionally, add functionality to clear search and show all products
 document.getElementById('searchAdminInput').addEventListener('input', function() {
