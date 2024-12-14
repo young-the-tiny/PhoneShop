@@ -1,77 +1,137 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link rel="stylesheet" href="./assets/css/form.css" />
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <title>Login page</title>
-  </head>
-  <body>
-    <div class="overlay"></div>
-    <div class="wrapper">
-      <div class="container-login">
-        <div class="title">
-          <i class="fa-regular fa-user"></i>
-        </div>
-        <form class="form">
-          <div class="wrapper-form">
-            <div class="input-control">
-              <input
-                type="text"
-                id="username"
-                name="username"
-                placeholder="Tên tài khoản..."
-                class="input-login"
-              />
-              <div class="icon">
-                <i class="fa-regular fa-user"></i>
-              </div>
-            </div>
-            <div class="input-control">
-              <input
-                type="password"
-                id="password"
-                name="password"
-                class="input-login"
-                placeholder="Mật khẩu..."
-              />
-              <div class="icon">
-                <i class="fa-solid fa-lock"></i>
-              </div>
-            </div>
-            <div class="input-control">
-              <button class="btn-login" type="submit">ĐĂNG NHẬP</button>
-            </div>
-            <div class="form-footer">
-              <div class="left-footer">
-                <input type="checkbox" id="checkbox" />
-                <label for="checkbox">Lưu thông tin đăng nhập</label>
-              </div>
-              <div class="right-footer">
-                <a href="./register.html"><p>Bạn chưa có tài khoản ?</p></a>
-              </div>
-            </div>
-          </div>
-        </form>
-        <div class="footer-login"></div>
-      </div>
+const overlay = document.querySelector(".overlay");
+// NO LOGIN
+const isLogin = JSON.parse(localStorage.getItem("isLogin"));
+// ADD TO CART
+function renderNotificationAddToCart() {
+  const isLogin = JSON.parse(localStorage.getItem("isLogin"));
+  overlay.classList.add("active");
+  if (isLogin) {
+    const htmls = `<div class="message_box">
+  <div class="overlay_header success">THÊM THÀNH CÔNG</div>
+  <div class="overlay_desciption">
+  Bạn đã thêm sản phẩm thành công! Hãy kiểm tra ở mục "GIỎ HÀNG".
+  </div>
+  <button class="overlay_button success">ĐÃ HIỂU</button>
+  </div>`;
+    overlay.innerHTML = htmls;
+  } else {
+    const htmls = `<div class="message_box">
+    <div class="overlay_header fail">THÊM GIỎ HÀNG THẤT BẠI</div>
+    <div class="overlay_desciption">
+    Bạn cần đăng nhập để được phép thêm sản phẩm vào giỏ hàng!
     </div>
-    <script src="./assets/js/notification.js"></script>
-    <script src="./assets/js/data/user.js"></script>
-    <script src="./assets/js/data/localStorage.js"></script>
-    <!-- <script src="./assets/js/index.js"></script> -->
-    <script src="./assets/js/login.js"></script>
-  </body>
-</html>
+    <button class="overlay_button fail">ĐÃ HIỂU</button>
+    </div>`;
+    overlay.innerHTML = htmls;
+  }
+}
+
+// PLACE ORDER
+function placeOrderNotification() {
+  overlay.classList.add("active");
+  const htmls = `<div class="message_box">
+  <div class="overlay_header success">ĐẶT HÀNG THÀNH CÔNG</div>
+  <div class="overlay_desciption">
+    Kiểm tra thông tin đơn hàng trong mục "Đơn hàng của bạn".
+  </div>
+  <button class="overlay_button success">ĐÓNG</button>
+  </div>`;
+  overlay.innerHTML = htmls;
+}
+
+// LOGIN SUCCESSFULLY
+function loginNotification(flag) {
+  overlay.classList.add("active");
+  if (flag) {
+    const htmls = `<div class="message_box" style="height: 300px;
+    padding: 10px 20x;
+    display: flex;
+    align-items: center;
+    justify-content: center;"
+>
+  <div class="overlay_header success"  style="height: 100%; display: flex; align-items: center; justify-content: center;">ĐĂNG NHẬP THÀNH CÔNG</div>
+  </div>`;
+    overlay.innerHTML = htmls;
+  } else {
+    const htmls = `<div class="message_box" style="height: 300px;
+    padding: 10px 20x;
+    display: flex;
+    align-items: center;
+    justify-content: center;"
+    > <div class="overlay_header fail">ĐĂNG NHẬP THẤT BẠI</div>
+    </div>`;
+    overlay.innerHTML = htmls;
+    setTimeout(() => { overlay.classList.remove("active"); }, 1000); // tắt sau 3 giây
+  }
+}
+
+// REGISTER NOTIFICATION
+function registerNotification(success, fail) {
+  overlay.classList.add("active");
+  if (success) {
+    const htmls = `<div class="message_box" style="height: 300px;
+    padding: 10px 20x;
+    display: flex;
+    align-items: center;
+    justify-content: center;"
+    > <div class="overlay_header success">ĐĂNG KÝ THÀNH CÔNG</div>
+    </div>`;
+    overlay.innerHTML = htmls;
+    setTimeout(windowLocationRegister, 1000);
+    return;
+  }
+
+  if (fail) {
+    const htmls = `<div class="message_box" style="height: 300px;
+    padding: 10px 20x;
+    display: flex;
+    align-items: center;
+    justify-content: center;"
+    > <div class="overlay_header fail">${fail}</div>
+    </div>`;
+    overlay.innerHTML = htmls;
+    setTimeout(closeOverlay, 1000);
+    return;
+  }
+}
+
+const closeOverlay = () => {
+  overlay.classList.remove("active");
+};
+
+document.addEventListener("click", (event) => {
+  if (event.target.matches(".overlay_button")) {
+    closeOverlay();
+  }
+});
+
+const windowLocationRegister = () => {
+  window.location = "login.html";
+};
+
+// THÔNG BÁO THÊM SẢN PHẨM ADMIN THÀNH CÔNG
+function notificationAdmin(value) {
+  overlay.classList.add("active");
+  const htmls = `<div class="message_box">
+  <div class="overlay_header success">${value}</div>
+  <button class="overlay_button success">ĐÓNG</button>
+  </div>`;
+  overlay.innerHTML = htmls;
+}
+
+function notificationAdminSuccess(value) {
+  overlay.classList.add("active");
+  const htmls = `<div class="message_box">
+  <div class="overlay_header success">${value}</div>
+  <button class="overlay_button success">ĐÓNG</button>
+  </div>`;
+  overlay.innerHTML = htmls;
+}
+function notificationAdminFail(value) {
+  overlay.classList.add("active");
+  const htmls = `<div class="message_box">
+  <div class="overlay_header fail">${value}</div>
+  <button class="overlay_button fail">ĐÓNG</button>
+  </div>`;
+  overlay.innerHTML = htmls;
+}
