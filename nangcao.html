@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,15 +31,20 @@
       };
   
       const filterProducts = (name, category, minPrice, maxPrice) => {
-        const products = getProducts();
-        return products.filter(product => {
-          const matchesName = name ? product.name.toUpperCase().includes(name.toUpperCase()) : true;
-          const matchesCategory = category && category !== "all" ? product.category.toUpperCase() === category.toUpperCase() : true;
-          const matchesMinPrice = minPrice ? product.price >= minPrice : true;
-          const matchesMaxPrice = maxPrice ? product.price <= maxPrice : true;
-          return matchesName && matchesCategory && matchesMinPrice && matchesMaxPrice;
-        });
-      };
+  const products = getProducts();
+  return products.filter(product => {
+    const matchesName = name ? product.name.toUpperCase().includes(name.toUpperCase()) : true;
+    const matchesCategory = category && category !== "all" ? product.category.toUpperCase() === category.toUpperCase() : true;
+    const matchesMinPrice = minPrice ? product.price >= minPrice : true;
+    const matchesMaxPrice = maxPrice ? product.price <= maxPrice : true;
+    
+    // Bổ sung điều kiện luôn hiển thị iPhone 13
+    const alwaysShowIphone13 = product.name.toUpperCase().includes("IPHONE 13");
+    
+    return (matchesName || alwaysShowIphone13) && matchesCategory && matchesMinPrice && matchesMaxPrice;
+  });
+};
+
   
       const renderResults = (products) => {
         resultContainer.innerHTML = "<p>Đang tìm kiếm...</p>";
